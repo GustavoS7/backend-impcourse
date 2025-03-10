@@ -4,7 +4,7 @@
   "description": "Backend plataforma de cursos, projeto com finalidade acadêmica (Faculdade Impacta)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx watch src/main/server.ts"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +17,7 @@
     "eslint-plugin-prettier": "5.2.3",
     "globals": "16.0.0",
     "prettier": "3.5.3",
+    "tsx": "4.19.3",
     "typescript": "5.8.2",
     "typescript-eslint": "8.26.0"
   },
