@@ -1,0 +1,11 @@
+{
+  "name": "backend-impcourse",
+  "version": "1.0.0",
+  "description": "Backend plataforma de cursos, projeto com finalidade acadêmica (Faculdade Impacta)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
