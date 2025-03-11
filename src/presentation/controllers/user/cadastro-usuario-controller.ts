@@ -36,28 +36,30 @@ export class CadastroUsuarioController extends Controller {
     };
   }
 
-  override validationSchema(): ZodType<any> | null {
-    return z.object({
-      name: z
-        .string({
-          required_error: 'Campo name precisa ser especificado',
-          invalid_type_error: 'Campo name precisa ser especificado',
-        })
-        .min(1, { message: 'Campo name precisa ter pelo menos 1 caracter' }),
-      email: z
-        .string({
-          required_error: 'Campo email precisa ser especificado',
-          invalid_type_error: 'Campo email precisa ser especificado',
-        })
-        .email({ message: 'email inválido' }),
-      password: z
-        .string({
-          required_error: 'Campo password precisa ser especificado',
-          invalid_type_error: 'Campo password precisa ser especificado',
-        })
-        .min(8, {
-          message: 'Campo password precisa ter pelo menos 8 caracteres',
-        }),
-    });
+  override validationSchema() {
+    return {
+      body: z.object({
+        name: z
+          .string({
+            required_error: 'Campo name precisa ser especificado',
+            invalid_type_error: 'Campo name precisa ser especificado',
+          })
+          .min(1, { message: 'Campo name precisa ter pelo menos 1 caracter' }),
+        email: z
+          .string({
+            required_error: 'Campo email precisa ser especificado',
+            invalid_type_error: 'Campo email precisa ser especificado',
+          })
+          .email({ message: 'email inválido' }),
+        password: z
+          .string({
+            required_error: 'Campo password precisa ser especificado',
+            invalid_type_error: 'Campo password precisa ser especificado',
+          })
+          .min(8, {
+            message: 'Campo password precisa ter pelo menos 8 caracteres',
+          }),
+      }),
+    };
   }
 }

@@ -5,15 +5,38 @@ import { ZodSchema } from 'zod';
 export abstract class Controller {
   abstract perform(httpRequest: any): Promise<HttpResponse>;
 
-  abstract validationSchema(): ZodSchema<any> | null;
+  abstract validationSchema(): {
+    body?: ZodSchema<any>;
+    params?: ZodSchema<any>;
+    query?: ZodSchema<any>;
+    user?: ZodSchema<any>;
+  };
 
   private validate(httpRequest: any): Error | undefined {
-    const schema = this.validationSchema();
-    if (!schema) return undefined;
+    const schemas = this.validationSchema();
 
-    const result = schema.safeParse(httpRequest);
-    if (!result.success) {
-      return new Error(result.error.errors.map((e) => e.message).join(', '));
+    if (schemas.body) {
+      const result = schemas.body.safeParse(httpRequest.body);
+      if (!result.success)
+        return new Error(result.error.errors.map((e) => e.message).join(', '));
+    }
+
+    if (schemas.params) {
+      const result = schemas.params.safeParse(httpRequest.params);
+      if (!result.success)
+        return new Error(result.error.errors.map((e) => e.message).join(', '));
+    }
+
+    if (schemas.query) {
+      const result = schemas.query.safeParse(httpRequest.query);
+      if (!result.success)
+        return new Error(result.error.errors.map((e) => e.message).join(', '));
+    }
+
+    if (schemas.user) {
+      const result = schemas.user.safeParse(httpRequest.user);
+      if (!result.success)
+        return new Error(result.error.errors.map((e) => e.message).join(', '));
     }
   }
 
