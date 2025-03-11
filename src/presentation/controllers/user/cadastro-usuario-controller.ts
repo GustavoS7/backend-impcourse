@@ -55,7 +55,9 @@ export class CadastroUsuarioController extends Controller {
           required_error: 'Campo password precisa ser especificado',
           invalid_type_error: 'Campo password precisa ser especificado',
         })
-        .min(8, { message: 'Campo name precisa ter pelo menos 8 caracteres' }),
+        .min(8, {
+          message: 'Campo password precisa ter pelo menos 8 caracteres',
+        }),
     });
   }
 }
