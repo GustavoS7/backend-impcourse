@@ -23,12 +23,16 @@ export class CadastroUsuarioUseCase implements ICadastroUsuarioUseCase {
   async execute({
     email,
     name,
-    senha,
+    password,
   }: ICadastroUsuarioUseCase.Params): Promise<ICadastroUsuarioUseCase.Result> {
     const existedUser = await this.userRepo.findByEmail(email);
     if (existedUser) throw new BadRequestError('E-mail já cadastrado');
-    const password = await this.hashProvider.hash(senha);
-    const user = await this.userRepo.create({ email, name, password });
+    const passwordHashed = await this.hashProvider.hash(password);
+    const user = await this.userRepo.create({
+      email,
+      name,
+      password: passwordHashed,
+    });
     const [accessToken, refreshToken] = await Promise.all([
       this.generateAccessToken(user.id),
       this.generateRefreshToken(user.id),

@@ -8,7 +8,7 @@ export namespace ICadastroUsuarioUseCase {
   export type Params = {
     name: string;
     email: string;
-    senha: string;
+    password: string;
   };
   export type Result = {
     id: string;
