@@ -2,7 +2,7 @@ import { TUser } from '@/domain/models';
 
 export interface ICreateUserRepository {
   create: (
-    data: ICreateUserRepository,
+    data: ICreateUserRepository.Params,
   ) => Promise<ICreateUserRepository.Result>;
 }
 

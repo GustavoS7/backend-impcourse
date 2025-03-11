@@ -1,5 +1,3 @@
-import { TUser } from '@/domain/models';
-
 export interface ICadastroUsuarioUseCase {
   execute(
     data: ICadastroUsuarioUseCase.Params,
@@ -12,5 +10,11 @@ export namespace ICadastroUsuarioUseCase {
     email: string;
     senha: string;
   };
-  export type Result = TUser;
+  export type Result = {
+    id: string;
+    name: string;
+    email: string;
+    accessToken: string;
+    refreshToken: string;
+  };
 }
