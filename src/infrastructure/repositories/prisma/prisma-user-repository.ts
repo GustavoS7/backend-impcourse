@@ -1,3 +1,5 @@
+import { RepositoryError } from '@/application/errors';
+import { prisma } from '@/infrastructure/lib';
 import {
   ICreateUserRepository,
   IFindUserByEmailRepository,
@@ -9,10 +11,22 @@ export class PrismaUserRepository
   async create(
     data: ICreateUserRepository.Params,
   ): Promise<ICreateUserRepository.Result> {
-    throw new Error('Non implemented method');
+    try {
+      const user = await prisma.user.create({ data });
+      return user;
+    } catch (error) {
+      throw new RepositoryError();
+    }
   }
 
   async findByEmail(email: string): Promise<IFindUserByEmailRepository.Result> {
-    throw new Error('Non implemented method');
+    try {
+      const user = await prisma.user.findFirst({
+        where: { email },
+      });
+      return user;
+    } catch (error) {
+      throw new RepositoryError();
+    }
   }
 }
