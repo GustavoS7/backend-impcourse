@@ -5,5 +5,5 @@ export interface IGetUserByIdRepository {
 }
 
 export namespace IGetUserByIdRepository {
-  export type Result = TUser;
+  export type Result = TUser | null;
 }
