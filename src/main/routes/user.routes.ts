@@ -7,6 +7,7 @@ import {
 import {
   makeCadastroUsuarioController,
   makeLoginUsuarioController,
+  makeRefreshTokenController,
   makeRetornarUsuarioController,
 } from '../factory/presentation/controllers';
 
@@ -19,5 +20,6 @@ userRoutes.get(
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeRetornarUsuarioController()),
 );
+userRoutes.post('/refreshToken', adapter(makeRefreshTokenController()));
 
 export { userRoutes };
