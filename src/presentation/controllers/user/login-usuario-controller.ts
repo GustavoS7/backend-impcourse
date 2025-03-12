@@ -1,12 +1,12 @@
 import { Controller, HttpResponse } from '@/presentation/protocols';
-import { ICadastroUsuarioUseCase } from '@/domain/use-cases';
+import { ILoginUsuarioUseCase } from '@/domain/use-cases';
 import { z } from 'zod';
 
-type TCadastroUsuarioInput = {
+type ILoginUsuarioInput = {
   body: { email: string; password: string; name: string };
 };
 
-type TCadastroUsuarioOutput = {
+type ILoginUsuarioOutput = {
   id: string;
   name: string;
   email: string;
@@ -14,21 +14,18 @@ type TCadastroUsuarioOutput = {
   refreshToken: string;
 };
 
-export class CadastroUsuarioController extends Controller {
-  constructor(
-    private readonly cadastroUsuarioUseCase: ICadastroUsuarioUseCase,
-  ) {
+export class LoginUsuarioController extends Controller {
+  constructor(private readonly loginUsuarioUseCase: ILoginUsuarioUseCase) {
     super();
   }
 
   override async perform(
-    httpRequest: TCadastroUsuarioInput,
-  ): Promise<HttpResponse<TCadastroUsuarioOutput>> {
-    const { email, password, name } = httpRequest.body;
-    const response = await this.cadastroUsuarioUseCase.execute({
+    httpRequest: ILoginUsuarioInput,
+  ): Promise<HttpResponse<ILoginUsuarioOutput>> {
+    const { email, password } = httpRequest.body;
+    const response = await this.loginUsuarioUseCase.execute({
       email,
       password,
-      name,
     });
     return {
       statusCode: 200,
@@ -39,12 +36,6 @@ export class CadastroUsuarioController extends Controller {
   override validationSchema() {
     return {
       body: z.object({
-        name: z
-          .string({
-            required_error: 'Campo name precisa ser especificado',
-            invalid_type_error: 'Campo name precisa ser especificado',
-          })
-          .min(1, { message: 'Campo name precisa ter pelo menos 1 caracter' }),
         email: z
           .string({
             required_error: 'Campo email precisa ser especificado',
@@ -56,8 +47,8 @@ export class CadastroUsuarioController extends Controller {
             required_error: 'Campo password precisa ser especificado',
             invalid_type_error: 'Campo password precisa ser especificado',
           })
-          .min(8, {
-            message: 'Campo password precisa ter pelo menos 8 caracteres',
+          .min(1, {
+            message: 'Campo password precisa ter pelo menos 1 caracter',
           }),
       }),
     };
