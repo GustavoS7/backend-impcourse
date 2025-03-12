@@ -25,7 +25,7 @@ export class LoginUsuarioUseCase implements ILoginUsuarioUseCase {
     password,
   }: ILoginUsuarioUseCase.Params): Promise<ILoginUsuarioUseCase.Result> {
     const user = await this.userRepo.findByEmail(email);
-    if (user) throw new UnauthorizedError('Invalid credentials');
+    if (!user) throw new UnauthorizedError('Invalid credentials');
     const isValid = await this.hashProvider.compare(password, user.password);
     if (!isValid) throw new UnauthorizedError('Invalid credentials');
     const [accessToken, refreshToken] = await Promise.all([
