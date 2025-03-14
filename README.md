@@ -70,13 +70,13 @@ test - Testes
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/seu-usuario/imp-course.git
+   git clone https://github.com/GustavoS7/backend-impcourse.git
    ```
 
 2. Navegue até o diretório do projeto:
 
    ```bash
-   cd imp-course
+   cd backend-impcourse
    ```
 
 3. Instale as dependências:
@@ -87,6 +87,11 @@ test - Testes
 
 4. Crie um arquivo `.env` na raiz do projeto e adicione as variáveis de ambiente necessárias, como a configuração do banco de dados.
 
+5. Execute o arquivo docker-compose.yml para criação do banco de dados
+   ```bash
+      docker compose up
+   ```
+
 5. Inicie o servidor de desenvolvimento:
 
    ```bash
@@ -96,7 +101,7 @@ test - Testes
 6. Acesse a aplicação no navegador em:
 
    ```
-   http://localhost:3000
+   http://localhost:8080
    ```
 
 <!-- ## Testes
