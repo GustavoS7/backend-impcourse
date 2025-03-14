@@ -89,7 +89,7 @@ test - Testes
 
 5. Execute o arquivo docker-compose.yml para criação do banco de dados
    ```bash
-      docker compose up
+   docker compose up
    ```
 
 5. Inicie o servidor de desenvolvimento:
