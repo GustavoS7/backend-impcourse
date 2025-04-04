@@ -1,3 +1,5 @@
+import { TCourse } from '@/domain/models';
+
 export interface ICadastroCursoUseCase {
   execute(
     data: ICadastroCursoUseCase.Params,
@@ -9,8 +11,8 @@ export namespace ICadastroCursoUseCase {
     title: string;
     description: string;
     category: string;
-    price: string;
+    price: number;
     userId: string;
   };
-  export type Result = null;
+  export type Result = TCourse;
 }

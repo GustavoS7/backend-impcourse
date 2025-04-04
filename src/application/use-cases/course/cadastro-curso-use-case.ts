@@ -1,7 +1,8 @@
+import { ICreateCourseRepository } from '@/application/protocols/repositories';
 import { ICadastroCursoUseCase } from '@/domain/use-cases';
 
 export class CadastroCursoUseCase implements ICadastroCursoUseCase {
-  constructor() {}
+  constructor(private courseRepository: ICreateCourseRepository) {}
 
   async execute({
     category,
@@ -10,6 +11,13 @@ export class CadastroCursoUseCase implements ICadastroCursoUseCase {
     title,
     userId,
   }: ICadastroCursoUseCase.Params): Promise<ICadastroCursoUseCase.Result> {
-    throw new Error('Non implemented Method');
+    const course = await this.courseRepository.create({
+      authorId: userId,
+      category,
+      description,
+      price,
+      title,
+    });
+    return course;
   }
 }
