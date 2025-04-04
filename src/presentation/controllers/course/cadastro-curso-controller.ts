@@ -50,10 +50,12 @@ export class CadastroCursoController extends Controller {
           .min(1, {
             message: 'Campo description precisa ter pelo menos 1 caracter',
           }),
-        price: z.coerce.number({
-          required_error: 'Campo price precisa ser especificado',
-          invalid_type_error: 'Campo price precisa ser especificado',
-        }),
+        price: z.coerce
+          .number({
+            required_error: 'Campo price precisa ser especificado',
+            invalid_type_error: 'Campo price precisa ser especificado',
+          })
+          .min(0, { message: 'Preço não pode ser negativo' }),
         category: z.coerce
           .string({
             invalid_type_error: 'Campo category precisa ser especificado',
