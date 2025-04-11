@@ -1,12 +1,12 @@
 import { IFetchCoursesByAuthorRepository } from '@/application/protocols/repositories';
-import { IListarCursosUsuarioUseCase } from '@/domain/use-cases';
+import { IListarCursosAutorUseCase } from '@/domain/use-cases';
 
-export class ListarCursosUsuarioUseCase implements IListarCursosUsuarioUseCase {
+export class ListarCursosAutorUseCase implements IListarCursosAutorUseCase {
   constructor(private courseRepository: IFetchCoursesByAuthorRepository) {}
 
   async execute({
     userId,
-  }: IListarCursosUsuarioUseCase.Params): Promise<IListarCursosUsuarioUseCase.Result> {
+  }: IListarCursosAutorUseCase.Params): Promise<IListarCursosAutorUseCase.Result> {
     const courses = await this.courseRepository.fetchByAuthor(userId);
     return courses;
   }

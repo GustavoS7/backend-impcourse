@@ -4,7 +4,10 @@ import {
   adaptExpressRoute as adapter,
   adaptExpressMiddleware as adapterMiddleware,
 } from '../adapters';
-import { makeCadastroCursoController } from '../factory/presentation/controllers';
+import {
+  makeCadastroCursoController,
+  makeListarCursosAutorController,
+} from '../factory/presentation/controllers';
 
 const courseRoutes = Router();
 
@@ -12,6 +15,12 @@ courseRoutes.post(
   '/cadastro',
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeCadastroCursoController()),
+);
+
+courseRoutes.get(
+  '/user',
+  adapterMiddleware(makeAuthMiddleware()),
+  adapter(makeListarCursosAutorController()),
 );
 
 export { courseRoutes };
