@@ -1,6 +1,5 @@
 import { Controller, HttpResponse } from '@/presentation/protocols';
 import { ICadastroAulaUseCase } from '@/domain/use-cases';
-import { TContent } from '@/domain/models';
 import { z } from 'zod';
 
 type TCadastroAulaInput = {
@@ -9,7 +8,7 @@ type TCadastroAulaInput = {
   file: Express.Multer.File;
 };
 
-type TCadastroAulaOutput = TContent;
+type TCadastroAulaOutput = ICadastroAulaUseCase.Result;
 
 export class CadastroAulaController extends Controller {
   constructor(private readonly cadastroAulaUseCase: ICadastroAulaUseCase) {
