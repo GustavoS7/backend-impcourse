@@ -5,5 +5,5 @@ export interface IGetCourseRepository {
 }
 
 export namespace IGetCourseRepository {
-  export type Result = TCourse;
+  export type Result = TCourse | null;
 }
