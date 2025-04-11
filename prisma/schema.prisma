@@ -31,4 +31,21 @@ model Course {
   updatedAt DateTime @updatedAt
 
   author User @relation(fields: [authorId], references: [id])
+
+  Content Content[]
+}
+
+model Content {
+  id          String  @id @default(uuid())
+  title       String
+  description String? @default("")
+  url         String
+  type        String
+  position    Int
+  courseId    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
 }
