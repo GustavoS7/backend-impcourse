@@ -18,7 +18,7 @@ courseRoutes.post(
 );
 
 courseRoutes.get(
-  '/user',
+  '/autor',
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeListarCursosAutorController()),
 );
