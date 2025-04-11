@@ -1,4 +1,4 @@
-import { TCourse } from '@/domain/models';
+import { TContent } from '@/domain/models';
 
 export interface ICreateContentRepository {
   create: (
@@ -9,10 +9,11 @@ export interface ICreateContentRepository {
 export namespace ICreateContentRepository {
   export type Params = {
     title: string;
-    authorId: string;
     description: string;
-    category: string;
-    price: number;
+    url: string;
+    type: string;
+    position: number;
+    courseId: string;
   };
-  export type Result = TCourse;
+  export type Result = TContent;
 }
