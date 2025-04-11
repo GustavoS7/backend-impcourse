@@ -1,2 +1,4 @@
 fontes.md
 node_modules
+
+*.env
