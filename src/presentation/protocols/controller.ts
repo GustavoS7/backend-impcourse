@@ -10,6 +10,7 @@ export abstract class Controller {
     params?: ZodSchema<any>;
     query?: ZodSchema<any>;
     user?: ZodSchema<any>;
+    file?: ZodSchema<any>;
   };
 
   private validate(httpRequest: any): Error | undefined {
@@ -35,6 +36,12 @@ export abstract class Controller {
 
     if (schemas.user) {
       const result = schemas.user.safeParse(httpRequest.user);
+      if (!result.success)
+        return new Error(result.error.errors.map((e) => e.message).join(', '));
+    }
+
+    if (schemas.file) {
+      const result = schemas.file.safeParse(httpRequest.file);
       if (!result.success)
         return new Error(result.error.errors.map((e) => e.message).join(', '));
     }

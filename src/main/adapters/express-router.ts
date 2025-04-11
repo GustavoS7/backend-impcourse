@@ -10,6 +10,7 @@ export const adaptExpressRoute: Adapter =
       params: req.params,
       query: req.query,
       user: req.user,
+      file: req.file,
     });
     const json = [200, 201, 204].includes(statusCode)
       ? payload

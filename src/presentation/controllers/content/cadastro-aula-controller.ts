@@ -73,7 +73,7 @@ export class CadastroAulaController extends Controller {
           if (!file) return false;
 
           const allowedTypes = ['image/jpeg', 'image/png', 'video/mp4'];
-          const maxSizeInBytes = 10 * 1024 * 1024;
+          const maxSizeInBytes = 50 * 1024 * 1024;
 
           return (
             allowedTypes.includes(file.mimetype) && file.size <= maxSizeInBytes
