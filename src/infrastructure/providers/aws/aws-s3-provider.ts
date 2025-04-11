@@ -7,7 +7,7 @@ import { env } from '@/main/app/config';
 export class AwsS3Provider implements IUploadFileProvider {
   async upload(file: Express.Multer.File): Promise<string> {
     try {
-      const fileKey = `${Date.now()}_${file.originalname}`;
+      const fileKey = `files/${Date.now()}_${file.originalname}`;
 
       await s3.send(
         new PutObjectCommand({
@@ -15,11 +15,10 @@ export class AwsS3Provider implements IUploadFileProvider {
           Key: fileKey,
           Body: file.buffer,
           ContentType: file.mimetype,
-          ACL: 'public-read',
         }),
       );
 
-      return `https://${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com/${fileKey}`;
+      return fileKey;
     } catch (error) {
       throw new RepositoryError();
     }
