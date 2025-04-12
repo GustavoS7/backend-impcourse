@@ -13,6 +13,7 @@ export namespace ICreateCourseRepository {
     description: string;
     category: string;
     price: number;
+    cover?: string | null;
   };
   export type Result = TCourse;
 }

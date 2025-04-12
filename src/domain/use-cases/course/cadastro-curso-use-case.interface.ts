@@ -13,6 +13,7 @@ export namespace ICadastroCursoUseCase {
     category: string;
     price: number;
     userId: string;
+    file: Express.Multer.File;
   };
   export type Result = TCourse;
 }
