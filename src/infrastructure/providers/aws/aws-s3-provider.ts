@@ -39,11 +39,10 @@ export class AwsS3Provider
           Key: fileKey,
           Body: file.buffer,
           ContentType: file.mimetype,
-          ACL: 'public-read',
         }),
       );
 
-      return `https://${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}>.amazonaws.com/${fileKey}`;
+      return `https://${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com/${fileKey}`;
     } catch (error) {
       throw new RepositoryError();
     }
