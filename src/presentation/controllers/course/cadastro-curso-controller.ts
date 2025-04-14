@@ -4,8 +4,14 @@ import { TCourse } from '@/domain/models';
 import { z } from 'zod';
 
 type TCadastroCourseInput = {
-  body: { title: string; description: string; price: number; category: string };
+  body: {
+    title: string;
+    description: string;
+    price: number;
+    category: string;
+  };
   user: { userId: string };
+  file: Express.Multer.File;
 };
 
 type TCadastroCursoOutput = TCourse;
@@ -20,12 +26,14 @@ export class CadastroCursoController extends Controller {
   ): Promise<HttpResponse<TCadastroCursoOutput>> {
     const { category, description, price, title } = httpRequest.body;
     const { userId } = httpRequest.user;
+    const { file } = httpRequest;
     const response = await this.cadastroCursoUseCase.execute({
       category,
       description,
       price,
       title,
       userId,
+      file,
     });
     return {
       statusCode: 201,
@@ -70,6 +78,21 @@ export class CadastroCursoController extends Controller {
           })
           .min(1, { message: 'Campo title precisa ter pelo menos 1 caracter' }),
       }),
+      file: z.custom<Express.Multer.File>(
+        (file) => {
+          if (!file) return false;
+
+          const allowedTypes = ['image/jpeg', 'image/png'];
+          const maxSizeInBytes = 5 * 1024 * 1024;
+
+          return (
+            allowedTypes.includes(file.mimetype) && file.size <= maxSizeInBytes
+          );
+        },
+        {
+          message: 'Arquivo inválido. Formato ou tamanho não permitido.',
+        },
+      ),
     };
   }
 }

@@ -2,6 +2,7 @@ import { RepositoryError } from '@/application/errors';
 import { prisma } from '@/infrastructure/lib';
 import {
   ICreateCourseRepository,
+  IFetchCoursesByAuthorRepository,
   IGetCoursePopulateRepository,
   IGetCourseRepository,
 } from '@/application/protocols/repositories';
@@ -10,7 +11,8 @@ export class PrismaCourseRepository
   implements
     ICreateCourseRepository,
     IGetCourseRepository,
-    IGetCoursePopulateRepository
+    IGetCoursePopulateRepository,
+    IFetchCoursesByAuthorRepository
 {
   async create(
     data: ICreateCourseRepository.Params,
@@ -52,6 +54,21 @@ export class PrismaCourseRepository
         },
       });
       return course;
+    } catch (error) {
+      throw new RepositoryError();
+    }
+  }
+
+  async fetchByAuthor(
+    authorId: string,
+  ): Promise<IFetchCoursesByAuthorRepository.Result> {
+    try {
+      const courses = await prisma.course.findMany({
+        where: {
+          authorId,
+        },
+      });
+      return courses;
     } catch (error) {
       throw new RepositoryError();
     }
