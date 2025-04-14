@@ -6,6 +6,7 @@ import {
   adaptExpressMiddleware as adapterMiddleware,
 } from '../adapters';
 import {
+  makeBuscarCursoAutorController,
   makeCadastroCursoController,
   makeListarCursosAutorController,
 } from '../factory/presentation/controllers';
@@ -23,6 +24,12 @@ courseRoutes.get(
   '/autor',
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeListarCursosAutorController()),
+);
+
+courseRoutes.get(
+  '/autor/:id',
+  adapterMiddleware(makeAuthMiddleware()),
+  adapter(makeBuscarCursoAutorController()),
 );
 
 export { courseRoutes };

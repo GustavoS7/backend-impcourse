@@ -3,7 +3,6 @@ import { IListarCursosAutorUseCase } from '@/domain/use-cases';
 import { z } from 'zod';
 
 type TListarCursosAutorInput = {
-  body: { title: string; description: string; price: number; category: string };
   user: { userId: string };
 };
 
@@ -24,7 +23,7 @@ export class ListarCursosAutorController extends Controller {
       userId,
     });
     return {
-      statusCode: 201,
+      statusCode: 200,
       payload: response,
     };
   }
