@@ -53,11 +53,11 @@ export class CadastroAulaController extends Controller {
           }),
         courseId: z
           .string({
-            required_error: 'Campo description precisa ser especificado',
-            invalid_type_error: 'Campo description precisa ser especificado',
+            required_error: 'Campo courseId precisa ser especificado',
+            invalid_type_error: 'Campo courseId precisa ser especificado',
           })
           .min(1, {
-            message: 'Campo description precisa ter pelo menos 1 caracter',
+            message: 'Campo courseId precisa ter pelo menos 1 caracter',
           }),
       }),
       user: z.object({
