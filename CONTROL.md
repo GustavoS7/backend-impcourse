@@ -14,9 +14,9 @@
 
 - [x] Deve ser possível se cadastrar um usuário;
 - [x] Deve ser possível se autenticar;
-- [] Deve ser possível cadastrar um curso;
+- [x] Deve ser possível cadastrar um curso;
 - [] Deve ser possível editar um curso;
-- [] Deve ser possível cadastrar conteúdo para o curso;
+- [x] Deve ser possível cadastrar conteúdo para o curso;
 - [] Deve ser possível listar todos os cursos;
 - [] Deve ser possível buscar um curso pelo nome;
 - [] Deve ser possível listar cursos por categoria;
@@ -26,8 +26,8 @@
 ## RNs (Regras de negócio)
 
 - [x] O usuário não deve poder se cadastrar com um e-mail duplicado;
-- [] O preço de um curso não pode ser negativo;
-- [] O curso deve ter, no mínimo, um conteúdo cadastrado:;
+- [x] O preço de um curso não pode ser negativo;
+- [x] O curso deve ter, no mínimo, um conteúdo cadastrado:;
 - [] O curso só pode ser comprado uma vez pelo mesmo usuário;
 - [] O usuário só pode acessar os cursos pagos após a confirmação do pagamento;
 - [] O conteúdo do curso deve ser acessado somente por usuários que compraram o curso;
@@ -38,6 +38,6 @@
 - [x] A senha do usuário precisa estar criptografada;
 - [x] Os dados da aplicação precisam estar persistidos em um banco MySql;
 - [x] O usuário deve ser identificado por um JWT (JSON Web Token);
-- [] Os arquivos que formam o conteúdo do curso devem estar na AWS (S3);
+- [x] Os arquivos que formam o conteúdo do curso devem estar na AWS (S3);
 - [] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [] O sistema deve ser acessível e compatível com dispositivos móveis
