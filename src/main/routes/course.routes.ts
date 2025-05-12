@@ -7,6 +7,7 @@ import {
 } from '../adapters';
 import {
   makeBuscarCursoAutorController,
+  makeBuscarCursoController,
   makeCadastroCursoController,
   makeListarCursosAutorController,
   makeListarCursosController,
@@ -32,6 +33,8 @@ courseRoutes.get(
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeBuscarCursoAutorController()),
 );
+
+courseRoutes.get('/:id', adapter(makeBuscarCursoController()));
 
 courseRoutes.post('/listar', adapter(makeListarCursosController()));
 

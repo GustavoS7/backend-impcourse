@@ -4,6 +4,7 @@ import {
   ICreateCourseRepository,
   IFetchCoursesByAuthorRepository,
   IFetchCoursesRepository,
+  IGetCourseInfoRepository,
   IGetCoursePopulateRepository,
   IGetCourseRepository,
 } from '@/application/protocols/repositories';
@@ -14,7 +15,8 @@ export class PrismaCourseRepository
     IGetCourseRepository,
     IGetCoursePopulateRepository,
     IFetchCoursesByAuthorRepository,
-    IFetchCoursesRepository
+    IFetchCoursesRepository,
+    IGetCourseInfoRepository
 {
   async create(
     data: ICreateCourseRepository.Params,
@@ -51,6 +53,40 @@ export class PrismaCourseRepository
           content: {
             orderBy: {
               position: 'desc',
+            },
+          },
+        },
+      });
+      return course;
+    } catch (error) {
+      throw new RepositoryError();
+    }
+  }
+
+  async getInfo(id: string): Promise<IGetCourseInfoRepository.Result> {
+    try {
+      const course = await prisma.course.findUnique({
+        where: {
+          id,
+        },
+        select: {
+          cover: true,
+          category: true,
+          description: true,
+          title: true,
+          price: true,
+          id: true,
+          content: {
+            select: {
+              title: true,
+              description: true,
+              type: true,
+              position: true,
+            },
+          },
+          author: {
+            select: {
+              name: true,
             },
           },
         },
