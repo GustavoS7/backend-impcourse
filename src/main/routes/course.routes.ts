@@ -9,6 +9,7 @@ import {
   makeBuscarCursoAutorController,
   makeCadastroCursoController,
   makeListarCursosAutorController,
+  makeListarCursosController,
 } from '../factory/presentation/controllers';
 
 const courseRoutes = Router();
@@ -31,5 +32,7 @@ courseRoutes.get(
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeBuscarCursoAutorController()),
 );
+
+courseRoutes.post('/listar', adapter(makeListarCursosController()));
 
 export { courseRoutes };
