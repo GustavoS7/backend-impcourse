@@ -41,5 +41,5 @@
   "include": [
     "src",
     "tests"
-  ],
+, "src/domain/use-cases/course/.interface.ts"  ],
 }
