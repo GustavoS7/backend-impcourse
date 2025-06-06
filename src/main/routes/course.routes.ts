@@ -13,6 +13,7 @@ import {
   makeBuscarCursoController,
   makeBuscarMeuCursoController,
   makeCadastroCursoController,
+  makeComprarCursoController,
   makeListarCursosAutorController,
   makeListarCursosController,
   makeListarMeusCursosController,
@@ -53,10 +54,16 @@ courseRoutes.get(
   adapter(makeBuscarMeuCursoController()),
 );
 
-courseRoutes.get(
+courseRoutes.post(
   '/user',
   adapterMiddleware(makeAuthMiddleware()),
   adapter(makeListarMeusCursosController()),
+);
+
+courseRoutes.post(
+  '/purchase',
+  adapterMiddleware(makeAuthMiddleware()),
+  adapter(makeComprarCursoController()),
 );
 
 export { courseRoutes };

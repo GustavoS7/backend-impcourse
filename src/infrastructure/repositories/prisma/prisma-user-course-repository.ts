@@ -1,12 +1,16 @@
 import { RepositoryError } from '@/application/errors';
 import { prisma } from '@/infrastructure/lib';
 import {
+  ICreateCourseUserRepository,
   IFetchCoursesByUserRepository,
   IFindCourseUserRepository,
 } from '@/application/protocols/repositories';
 
 export class PrismaUserCourseRepository
-  implements IFindCourseUserRepository, IFetchCoursesByUserRepository
+  implements
+    IFindCourseUserRepository,
+    IFetchCoursesByUserRepository,
+    ICreateCourseUserRepository
 {
   async find({
     courseId,
@@ -61,6 +65,17 @@ export class PrismaUserCourseRepository
         total,
         page,
       };
+    } catch (error) {
+      throw new RepositoryError();
+    }
+  }
+
+  async create(
+    data: ICreateCourseUserRepository.Params,
+  ): Promise<ICreateCourseUserRepository.Result> {
+    try {
+      const course = await prisma.userCourse.create({ data });
+      return course;
     } catch (error) {
       throw new RepositoryError();
     }
