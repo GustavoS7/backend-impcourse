@@ -9,6 +9,10 @@ export interface IBuscarCursoUseCase {
 export namespace IBuscarCursoUseCase {
   export type Params = {
     id: string;
+    userId?: string;
   };
-  export type Result = TCourseInfo;
+  export type Result = {
+    course: TCourseInfo;
+    hasUserPurchased: boolean;
+  };
 }

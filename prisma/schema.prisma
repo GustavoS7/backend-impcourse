@@ -16,7 +16,8 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  course Course[]
+  course     Course[]
+  UserCourse UserCourse[]
 }
 
 model Course {
@@ -33,7 +34,8 @@ model Course {
 
   author User @relation(fields: [authorId], references: [id])
 
-  content Content[]
+  content    Content[]
+  UserCourse UserCourse[]
 }
 
 model Content {
@@ -49,4 +51,16 @@ model Content {
   updatedAt DateTime @updatedAt
 
   course Course @relation(fields: [courseId], references: [id])
+}
+
+model UserCourse {
+  id          String   @id @default(uuid())
+  userId      String
+  courseId    String
+  purchasedAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@unique([userId, courseId])
 }
