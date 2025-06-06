@@ -15,6 +15,7 @@ import {
   makeCadastroCursoController,
   makeListarCursosAutorController,
   makeListarCursosController,
+  makeListarMeusCursosController,
 } from '../factory/presentation/controllers';
 
 const courseRoutes = Router();
@@ -48,8 +49,14 @@ courseRoutes.post('/listar', adapter(makeListarCursosController()));
 
 courseRoutes.get(
   '/user/:id',
-  adapterMiddleware(makeUserMiddleware()),
+  adapterMiddleware(makeAuthMiddleware()),
   adapter(makeBuscarMeuCursoController()),
+);
+
+courseRoutes.get(
+  '/user',
+  adapterMiddleware(makeAuthMiddleware()),
+  adapter(makeListarMeusCursosController()),
 );
 
 export { courseRoutes };
