@@ -3,10 +3,14 @@ import { prisma } from '@/infrastructure/lib';
 import {
   ICreateContentRepository,
   IFetchContentByCourseRepository,
+  IFindContentRepository,
 } from '@/application/protocols/repositories';
 
 export class PrismaContentRepository
-  implements ICreateContentRepository, IFetchContentByCourseRepository
+  implements
+    ICreateContentRepository,
+    IFetchContentByCourseRepository,
+    IFindContentRepository
 {
   async create(
     data: ICreateContentRepository.Params,
@@ -26,6 +30,15 @@ export class PrismaContentRepository
       const content = await prisma.content.findMany({
         where: { courseId },
       });
+      return content;
+    } catch (error) {
+      throw new RepositoryError();
+    }
+  }
+
+  async find(id: string): Promise<IFindContentRepository.Result> {
+    try {
+      const content = await prisma.content.findUnique({ where: { id } });
       return content;
     } catch (error) {
       throw new RepositoryError();

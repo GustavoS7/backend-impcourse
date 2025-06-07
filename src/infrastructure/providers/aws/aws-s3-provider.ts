@@ -44,6 +44,7 @@ export class AwsS3Provider
 
       return `https://${env.AWS_BUCKET_NAME}.s3.${env.AWS_REGION}.amazonaws.com/${fileKey}`;
     } catch (error) {
+      console.log(error);
       throw new RepositoryError();
     }
   }

@@ -4,6 +4,7 @@ import { z } from 'zod';
 
 type TBuscarCursoInput = {
   params: { id: string };
+  user?: { userId?: string };
 };
 
 type TBuscarCursoOutput = IBuscarCursoUseCase.Result;
@@ -19,6 +20,7 @@ export class BuscarCursoController extends Controller {
     const { id } = httpRequest.params;
     const response = await this.buscarCursoUseCase.execute({
       id,
+      userId: httpRequest?.user?.userId,
     });
     return {
       statusCode: 200,
@@ -36,6 +38,11 @@ export class BuscarCursoController extends Controller {
           })
           .min(1, { message: 'Campo id precisa ter pelo menos 1 caracter' }),
       }),
+      user: z
+        .object({
+          userId: z.string().optional(),
+        })
+        .optional(),
     };
   }
 }
