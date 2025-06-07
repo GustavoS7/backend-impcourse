@@ -53,6 +53,7 @@ export abstract class Controller {
     try {
       return await this.perform(httpRequest);
     } catch (error) {
+      console.log(error);
       if (error instanceof AppError) {
         return appError(error);
       }

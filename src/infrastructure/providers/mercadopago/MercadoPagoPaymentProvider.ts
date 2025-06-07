@@ -1,10 +1,10 @@
+import { RepositoryError } from '@/application/errors';
 import { mercadopago } from '@/infrastructure/lib';
 import { Preference } from 'mercadopago';
 import {
   ICreatePaymentProvider,
   IVerifyPaymentProvider,
 } from '@/application/protocols/providers';
-import { RepositoryError } from '@/application/errors';
 
 export class MercadoPagoProvider
   implements ICreatePaymentProvider, IVerifyPaymentProvider
@@ -28,11 +28,11 @@ export class MercadoPagoProvider
             },
           ],
           back_urls: {
-            success: `http://localhost:3000/user/curso/${courseId}`,
-            failure: `http://localhost:3000/curso/${courseId}`,
+            success: `/user/curso/${courseId}`,
+            failure: `/curso/${courseId}`,
           },
-          // notification_url: 'http://localhost:8080/webhook',
-          auto_return: 'approved',
+          notification_url:
+            'https://fdde-200-168-219-210.ngrok-free.app/webhook',
           metadata: {
             userId,
             courseId,
@@ -42,28 +42,31 @@ export class MercadoPagoProvider
 
       return { initPoint: preference.init_point ?? '' };
     } catch (error) {
-      console.log(error);
       throw new RepositoryError();
     }
   }
 
   async verify(paymentId: string): Promise<IVerifyPaymentProvider.Result> {
-    const response = await fetch(
-      `https://api.mercadopago.com/v1/payments/${paymentId}`,
-      {
-        headers: {
-          Authorization: `Bearer TEST-8448188439852596-060621-5eef026977af8c6cf654a4aeff203743-1067020725`,
+    try {
+      const response = await fetch(
+        `https://api.mercadopago.com/v1/payments/${paymentId}`,
+        {
+          headers: {
+            Authorization: `Bearer TEST-8448188439852596-060621-5eef026977af8c6cf654a4aeff203743-1067020725`,
+          },
         },
-      },
-    );
+      );
 
-    const payment = await response.json();
-    const { status, metadata } = payment;
+      const payment = await response.json();
+      const { status, metadata } = payment;
 
-    return {
-      status,
-      userId: metadata.userId,
-      courseId: metadata.courseId,
-    };
+      return {
+        status,
+        userId: metadata.user_id,
+        courseId: metadata.course_id,
+      };
+    } catch (error) {
+      throw new RepositoryError();
+    }
   }
 }

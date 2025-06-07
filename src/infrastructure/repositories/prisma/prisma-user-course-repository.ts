@@ -22,16 +22,25 @@ export class PrismaUserCourseRepository
           courseId,
           userId,
         },
-        select: {
-          id: true,
-          userId: true,
-          purchasedAt: true,
+        include: {
           course: {
             include: {
-              content: true,
+              content: {
+                orderBy: { position: 'asc' },
+              },
             },
           },
         },
+        // select: {
+        //   id: true,
+        //   userId: true,
+        //   purchasedAt: true,
+        //   course: {
+        //     include: {
+        //       content: true,
+        //     },
+        //   },
+        // },
       });
       return data;
     } catch (error) {
