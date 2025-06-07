@@ -6,8 +6,8 @@ export interface IComprarCursoUseCase {
 
 export namespace IComprarCursoUseCase {
   export type Params = {
-    courseId: string;
     userId: string;
+    courseId: string;
   };
-  export type Result = boolean;
+  export type Result = { initPoint: string };
 }
