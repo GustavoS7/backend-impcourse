@@ -9,8 +9,8 @@ type TComprarCursoInput = {
 
 type TComprarCursoOutput = IComprarCursoUseCase.Result;
 
-export class BuscarMeuCursoController extends Controller {
-  constructor(private readonly buscarMeuCursoUseCase: IComprarCursoUseCase) {
+export class ComprarCursoController extends Controller {
+  constructor(private readonly comprarCursoUseCase: IComprarCursoUseCase) {
     super();
   }
 
@@ -19,7 +19,7 @@ export class BuscarMeuCursoController extends Controller {
   ): Promise<HttpResponse<TComprarCursoOutput>> {
     const { courseId } = httpRequest.body;
     const { userId } = httpRequest.user;
-    const response = await this.buscarMeuCursoUseCase.execute({
+    const response = await this.comprarCursoUseCase.execute({
       courseId,
       userId,
     });

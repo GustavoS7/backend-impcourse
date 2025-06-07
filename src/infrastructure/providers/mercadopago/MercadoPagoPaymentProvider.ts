@@ -28,10 +28,10 @@ export class MercadoPagoProvider
             },
           ],
           back_urls: {
-            success: `${process.env.APP_URL}/payment/success`,
-            failure: `${process.env.APP_URL}/payment/failure`,
+            success: `http://localhost:3000/user/curso/${courseId}`,
+            failure: `http://localhost:3000/curso/${courseId}`,
           },
-
+          // notification_url: 'http://localhost:8080/webhook',
           auto_return: 'approved',
           metadata: {
             userId,
@@ -48,23 +48,22 @@ export class MercadoPagoProvider
   }
 
   async verify(paymentId: string): Promise<IVerifyPaymentProvider.Result> {
-    throw new Error();
-    // const response = await fetch(
-    //   `https://api.mercadopago.com/v1/payments/${paymentId}`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.MERCADO_PAGO_ACCESS_TOKEN}`,
-    //     },
-    //   },
-    // );
+    const response = await fetch(
+      `https://api.mercadopago.com/v1/payments/${paymentId}`,
+      {
+        headers: {
+          Authorization: `Bearer TEST-8448188439852596-060621-5eef026977af8c6cf654a4aeff203743-1067020725`,
+        },
+      },
+    );
 
-    // const payment = await response.json();
-    // const { status, metadata } = payment;
+    const payment = await response.json();
+    const { status, metadata } = payment;
 
-    // return {
-    //   status,
-    //   userId: metadata.userId,
-    //   courseId: metadata.courseId,
-    // };
+    return {
+      status,
+      userId: metadata.userId,
+      courseId: metadata.courseId,
+    };
   }
 }
